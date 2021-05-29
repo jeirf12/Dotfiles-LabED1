@@ -1,0 +1,4 @@
+Raymon;A Serway,John;W Jewwet,Fisica,2016,Mexico D.F,Mexico,8,9,Cengage Learning, 978-607-522-490-9
+Raymon;A Serway,John;W Jewwet,Fisica1,2015,Mexico D.F,Mexico,8,9,Cengage Learning, 978-607-522-490-9
+Raymon;A Serway,John;W Jewwet,Fisica2,2014,Mexico D.F,Mexico,8,9,Cengage Learning, 978-607-522-490-9
+Raymon;A Serway,John;W Jewwet,Fisica3,2013,Mexico D.F,Mexico,8,9,Cengage Learning, 978-607-522-490-9
