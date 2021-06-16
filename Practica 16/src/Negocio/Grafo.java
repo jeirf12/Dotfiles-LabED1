@@ -45,6 +45,9 @@ public class Grafo<T> {
 		}
 	}
 	
+	/**
+     	* Logitud de camino con más proceso a la hora de imprimir (opcional utilizarlo)
+     	*/
 	public void longitudCamino() {
 		int coste=0;
 		Consola.escribir("T = ");
@@ -136,78 +139,8 @@ public class Grafo<T> {
 		}else {
 			Consola.escribirSaltarLinea("El coste debe ser mayor a cero o positivo");
 		}
-	}/*
-	public Grafo<T> kruskal() {
-		Grafo<T> grafoKrus= new Grafo<T>();
-		int[][] matrizAdy= matrizPonderados();
-		int[][] matrizKrus= new int[matrizAdy.length][matrizAdy.length];
-		int fila= listaVertices.indexOf(listaVertices.getCabeza().getDato());
-		ArrayList<Integer> columnasVisitadas= new ArrayList<Integer>();
-		ArrayList<Integer> FilasVisitadas= new ArrayList<Integer>();
-		kruskal(fila, columnasVisitadas, matrizAdy, matrizKrus,FilasVisitadas);
-		//Agregar los Vertices
-		for (int i = 0; i < matrizKrus.length; i++) {
-			NodoGrafo<T> nuevo= listaVertices.devolverNodo(i).getDato();
-			grafoKrus.agregarVertice(nuevo.getElemento());
-		}
-		//Agregar las Aristas
-		for (int i = 0; i < matrizKrus.length; i++) {
-			for (int j = 0; j < matrizKrus.length; j++) {
-				if(matrizKrus[i][j]>0) {
-					NodoGrafo<T> vInic= listaVertices.devolverNodo(i).getDato();
-					NodoGrafo<T> vFina= listaVertices.devolverNodo(j).getDato();
-					grafoKrus.agregarArista(vInic.getElemento(), vFina.getElemento(), matrizKrus[i][j]);
-				}
-			}
-		}
-		return grafoKrus;
 	}
-	private void kruskal(int fila, ArrayList<Integer>visitados,int[][] matrizAdy, int[][] matrizKrus, ArrayList<Integer> filasV) {
-		if(visitados.size()<matrizAdy.length-1) {
-			int[] pesos= new int[matrizAdy.length];
-			for (int i = 0; i < matrizAdy.length; i++) {
-				pesos[i]=matrizAdy[fila][i];
-			}
-			
-			int posMenor=Integer.MAX_VALUE;
-			int menor=Integer.MAX_VALUE; 
-			for (int i = 0; i < pesos.length; i++) {
-				if(pesos[i]>0) {
-					if(pesos[i]<menor && !visitados.contains(i)) {
-						menor=pesos[i];
-						posMenor=i;
-					}
-				}
-			}
-			int menorVis=Integer.MAX_VALUE;
-			int posMenorVis=Integer.MAX_VALUE;
-			int filaMenorVis=Integer.MAX_VALUE;
-			int [] temp= new int[pesos.length];
-			for (int i = 0; i < filasV.size(); i++) {
-				for (int j = 0; j < temp.length; j++) {
-					temp[j]=matrizAdy[filasV.get(i)][j];
-					if(temp[j]>0) {
-						if(temp[j]<menorVis) {
-							menorVis=temp[j];
-							posMenorVis=j;
-							filaMenorVis=filasV.get(i);
-						}
-					}
-				}
-			}
-			if(menorVis<menor) {
-				menor=menorVis;
-				posMenor=posMenorVis;
-				fila=filaMenorVis;
-			}
-			visitados.add(posMenor);
-			filasV.add(fila);
-			matrizKrus[fila][posMenor]=menor;
-			matrizAdy[fila][posMenor]=0;
-			matrizAdy[posMenor][fila]=0;
-			kruskal(posMenor, visitados,matrizAdy,matrizKrus,filasV);
-		}
-	}*/
+	
 	public int[][] matrizPonderados() {
 		int [][] matrizAdy = new int [listaVertices.getTamanio()][listaVertices.getTamanio()];
 		NodoLista<NodoGrafo<T>> aux1 = listaVertices.getCabeza();
@@ -240,17 +173,6 @@ public class Grafo<T> {
 		return -1;
 	}
 	
-	private boolean existeArista(NodoGrafo<T> vInicial, NodoGrafo<T> vFinal) {
-		if (vInicial.estaEnLista(vFinal.getElemento()) == true) {
-			return true;
-		} else {
-			return false;
-		}
-	}/*
-	public void mostrarkruskal() {
-		Grafo<T> grafoKruskal=kruskal();
-		grafoKruskal.longitudCamino();
-	}*/
 	public void profundidad(T elemento){
 		NodoGrafo<T> nodo = retornarVertice(elemento);
 		if (nodo != null){
@@ -342,44 +264,71 @@ public class Grafo<T> {
 			anchura(listaV, inicial.getSiguiente());
 		}
 	}
-	public void kruskal() {
-		int [][] matrizGrafoPonderado=matrizPonderados();
-		Grafo<T> kruskal=new Grafo<T>();
-		kruskal(listaVertices.getCabeza(), kruskal);
-		kruskal(kruskal,matrizGrafoPonderado,0);
-		kruskal.longitudCamino();
-	}
-	private void kruskal(NodoLista<NodoGrafo<T>> aux,Grafo<T> kruskal) {
-		if (!esNulo(aux)) {
-			kruskal.agregarVertice(aux.getDato().getElemento());
-			kruskal(aux.getSiguiente(),kruskal);
-		}
-	}
-	private void kruskal(Grafo<T> kruskal,int[][] matrizAdyacente,int fila) {
-		if (fila<matrizAdyacente.length) {
-			int menor=Integer.MAX_VALUE;
-			int posicionMenor=0;
-			int []pesos=new int[matrizAdyacente.length];
-			for (int i = 0; i < pesos.length; i++) {
-				pesos[i]=matrizAdyacente[fila][i];
-			}
-			for (int i = 0; i < pesos.length; i++) {
-				if (pesos[i]>0) {
-					if (pesos[i]<menor) {
-						menor=pesos[i];
-						posicionMenor=i;
-					}
-				}
-			}
-			matrizAdyacente[fila][posicionMenor]=0;
-			NodoGrafo<T> inic=listaVertices.devolverNodo(fila).getDato();
-			NodoGrafo<T> fin=listaVertices.devolverNodo(posicionMenor).getDato();
-			if (!kruskal.verificarArista(inic.getElemento(), fin.getElemento())) {
-				kruskal.agregarArista(inic.getElemento(), fin.getElemento(), menor);
-			}
-			kruskal(kruskal,matrizAdyacente,fila+1);
-		}
-	}
+	
+	private boolean verificaCiclo(NodoGrafo<T> inic, NodoGrafo<T> fin){
+        	NodoLista<NodoGrafo<T>> aux = listaVertices.getCabeza().getSiguiente();
+        	while (aux != null) {            
+        	    NodoGrafo<T> dato = aux.getDato();
+        	    if (dato.estaEnLista(inic.getElemento()) && dato.estaEnLista(fin.getElemento())) {
+        	        return true;
+        	    }
+        	    aux = aux.getSiguiente();
+        	}
+        	return false;
+    	}
+	
+	private void kruskalVertices(NodoLista<NodoGrafo<T>> aux, Grafo<T> kruskal) {
+        	if (!esNulo(aux)) {
+        	    kruskal.agregarVertice(aux.getDato().getElemento());
+        	    kruskalVertices(aux.getSiguiente(), kruskal);
+        	}
+    	}
+    	
+	private List<Arista<T>> getListaAristas(){
+        	Lista<NodoGrafo<T>> listTemp = listaVertices;
+        	NodoLista<NodoGrafo<T>> aux = listTemp.getCabeza();
+        	List<Arista<T>> list = new ArrayList<Arista<T>>();
+        	while (aux != null) {
+        	    NodoLista<NodoGrafo<T>> aux2 = listTemp.getCabeza();
+        	    while (aux2 != null) {
+        	        int peso = pesoArista(aux.getDato(), aux2.getDato());
+        	        if (peso > 0) {
+        	            list.add(new Arista<>(aux.getDato(), aux2.getDato(), peso));
+        	            aux2.getDato().eliminarNodo(aux.getDato());
+        	        }
+        	        aux2 = aux2.getSiguiente();
+        	    }
+        	    aux = aux.getSiguiente();
+        	}
+        	return list;
+    	}
+	
+	public void methodKruskal() {
+        	int sizeVertices = listaVertices.getTamanio();
+        	int contador = 0, coste = 0;
+	        List<Arista<T>> list = getListaAristas();
+        	Collections.sort(list, new AristaSort<T>());
+        	Grafo<T> kruskal = new Grafo<T>();
+        	kruskalVertices(listaVertices.getCabeza(), kruskal);
+        	System.out.print("T = ");
+        	for (Arista<T> listaArista : list) {
+        	    NodoGrafo<T> inic = listaArista.getInicial();
+        	    NodoGrafo<T> fin = listaArista.getFin();
+        	    if (!kruskal.verificaCiclo(inic, fin) && contador < (sizeVertices -1)) {
+        	        kruskal.agregarArista(inic.getElemento(), fin.getElemento(), listaArista.getCoste());
+        	        System.out.print("[" + inic.getElemento() + "-" + fin.getElemento() + "," + listaArista.getCoste() + "],");
+        	        coste += listaArista.getCoste();
+        	        contador++;
+        	    }
+        	}
+        	System.out.println(" Longitud de camino = " + coste);
+        	/**
+        	 * Opcional utilizarlo
+        	 */
+        
+        	//kruskal.longitudCamino();
+    	}
+    
 	private boolean esNulo(NodoLista<NodoGrafo<T>> nodo) {
 		return nodo==null;
 	}

@@ -11,11 +11,11 @@ public class Test {
 		llenarVerticesGrafo();
 		if (grafoLetras.getListaVertices().getCabeza()!=null) {
 			grafoLetras.verticesGrafoPonderado();
-			grafoLetras.kruskal();
+			grafoLetras.methodKruskal();
 		}
 		if (grafoNumerico.getListaVertices().getCabeza()!=null) {
 			grafoNumerico.verticesGrafoPonderado();
-			grafoNumerico.kruskal();
+			grafoNumerico.methodKruskal();
 		}
 	}
 	public static void llenarVerticesGrafo() {
