@@ -41,10 +41,10 @@ public class Consola {
 			value = input.readLine();
 			option =  ((Object) parRead).getClass().getSimpleName();
 			switch(option){
-				case "String" -> { if(!isNumber("" + parRead)) parRead = (T) String.valueOf(value.trim()); }
-				case "Double" -> { if(isNumber("" + parRead) && value.contains(".")) parRead = (T) Double.valueOf(value); }
-				case "Float" -> { if(isNumber("" + parRead) && value.contains(".")) parRead = (T) Float.valueOf(value); }
-				case "Integer" -> { if(isNumber("" + parRead)) parRead = (T) Integer.valueOf(value); }
+				case "String" -> { if(!isNumber(value)) parRead = (T) String.valueOf(value.trim()); }
+				case "Double" -> { if(isNumber(value) && value.contains(".")) parRead = (T) Double.valueOf(value); }
+				case "Float" -> { if(isNumber(value) && value.contains(".")) parRead = (T) Float.valueOf(value); }
+				case "Integer" -> { if(isNumber(value)) parRead = (T) Integer.valueOf(value); }
 			}
 			if (parWichMessage) {
 				System.out.print("Se leyo correctamente");
