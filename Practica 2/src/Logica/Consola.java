@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class Consola {
+
 	public static <T> boolean escribirSaltarLinea (T parEtiqueta,boolean parWichMessage) {
 		try {
 			System.out.println(parEtiqueta);
@@ -18,6 +19,7 @@ public class Consola {
 			return false;
 		}
 	}
+
 	public static <T> boolean escribir(T parEtiqueta,boolean parWichMessage) {
 		try {
 			System.out.print(parEtiqueta);
@@ -62,12 +64,14 @@ public class Consola {
 		escribir(parEtiqueta, parWichMessage);
 		return leer(parVariable, parWichMessage);
 	}
+
 	public static <T> boolean leer(T [] parVector) {
 		for (int varIndice = 0; varIndice < parVector.length; varIndice++) {
 			leer(parVector[varIndice], false);
 		}
 		return true;
 	}
+
 	public static <T> boolean leer(T [] parVector,int parCapacidadVector) {
 		for (int varIndice = 0; varIndice < parCapacidadVector; varIndice++) {
 			leer(parVector[varIndice],false);
@@ -75,6 +79,7 @@ public class Consola {
 		System.out.println("se leyo correctamente el vector");
 		return true;
 	}
+
 	public static <T> boolean escribirSaltarLinea(T [] parVector,boolean parMensaje) {
 		for (int varIndice = 0; varIndice < parVector.length; varIndice++) {
 			if (escribirSaltarLinea(parVector[varIndice], parMensaje)==false) {
@@ -84,6 +89,7 @@ public class Consola {
 		}
 		return true;
 	}
+
 	public static boolean isNumber(String chain) {
 		return chain.matches("[+-]?\\d*(\\.\\d+)?");
 	}

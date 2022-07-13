@@ -2,7 +2,7 @@ package Presentacion;
 
 import Logica.Consola;
 
-public class Menu {
+public abstract class Menu {
 	private String atrTitulo;
 	private String [] atrVectorOpciones;
 	protected int atrOpcion;
@@ -33,7 +33,5 @@ public class Menu {
 		this.atrOpcionSalir=parVectoropciones.length+1;
 		this.iterarMenu();
 	}
-	protected void procesarOpcion() {
-		
-	}
+	public abstract void procesarOpcion();
 }

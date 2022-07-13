@@ -24,7 +24,7 @@ public class MenuConfigurar extends Menu{
 		int numero=0;
 		do {
 			numero=Consola.leer("Dígite el número: ", numero, false);
-		}while(numero<1 || !Consola.esNumerico(""+numero));
+		}while(numero<1 || !Consola.isNumber(""+numero));
 		Consola.escribirSaltarLinea("El numero de digitos total del numero "+numero+" es: "+numeroDigitos(numero), false);
 	}
 	private int numeroDigitos(int n){
@@ -39,7 +39,7 @@ public class MenuConfigurar extends Menu{
 		int numero=0;
 		do {
 			numero=Consola.leer("Dígite el número: ", numero, false);
-		} while (numero<1 || !Consola.esNumerico(""+numero));
+		} while (numero<1 || !Consola.isNumber(""+numero));
 		palindromo(numero);
 	}
 	private void palindromo(int palindromo){
@@ -57,8 +57,9 @@ public class MenuConfigurar extends Menu{
 		}
 		return aux;
 	}
+
 	@Override
-	protected void procesarOpcion() {
+	public void procesarOpcion() {
 		if (personas==null) {
 			agregarLista();
 		}
