@@ -1,12 +1,9 @@
 package Negocio;
 
-public class Institucion extends Autor{
+public class Institucion extends Autor {
 
-	public Institucion(String nombre) {
-		super(nombre);
-	}
+	public Institucion(String nombre) {	super(nombre); }
+
 	@Override
-	public void mostrarAutor() {
-		System.out.println("Nombre Institucion: "+nombre);
-	}
+	public void mostrarAutor() { System.out.println("\tNombre Institucion: "+this.nombre); }
 }

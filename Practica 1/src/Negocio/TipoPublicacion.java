@@ -1,5 +1,5 @@
 package Negocio;
 
 public enum TipoPublicacion {
-	diaria,semanal;
+	diaria, semanal;
 }

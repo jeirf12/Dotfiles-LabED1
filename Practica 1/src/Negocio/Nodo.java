@@ -4,32 +4,17 @@ public class Nodo<T> {
 	private T dato;
 	private Nodo<T> siguiente;
 
-	public Nodo() {
-		siguiente = null;
-	}
-	public Nodo(T p) {
-		siguiente = null;
-		dato = p;
-	}
+	public Nodo() { this.siguiente = null; }
 
-	public Nodo(T t, Nodo<T> siguiente) {
-		this.siguiente = siguiente;
-		dato = t;
-	}
+	public Nodo(T p) { this.siguiente = null; this.dato = p; }
 
-	public T getDato() {
-		return dato;
-	}
+	public Nodo(T t, Nodo<T> siguiente) { this.siguiente = siguiente; this.dato = t; }
 
-	public void setDato(T dato) {
-		this.dato = dato;
-	}
+	public T getDato() { return this.dato; }
 
-	public Nodo<T> getSiguiente() {
-		return siguiente;
-	}
+	public void setDato(T dato) { this.dato = dato; }
 
-	public void setSiguiente(Nodo<T> siguiente) {
-		this.siguiente = siguiente;
-	}
+	public Nodo<T> getSiguiente() { return this.siguiente; }
+
+	public void setSiguiente(Nodo<T> siguiente) { this.siguiente = siguiente; }
 }
