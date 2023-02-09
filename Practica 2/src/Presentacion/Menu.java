@@ -13,25 +13,27 @@ public abstract class Menu {
 			this.imprimirMenu();
 			this.leerOpcion();
 			this.procesarOpcion();
-		} while (this.atrOpcion!=this.atrOpcionSalir);
+		} while (this.atrOpcion != this.atrOpcionSalir);
 	}
+
 	private void imprimirMenu() {
-		Consola.escribirSaltarLinea(atrTitulo, false);
-		Consola.escribirSaltarLinea(this.atrVectorOpciones, false);
-		Consola.escribirSaltarLinea(atrOpcionSalir+".Para salir...", false);
+		Consola.escribirSaltarLinea(this.atrTitulo);
+		Consola.escribirSaltarLinea(this.atrVectorOpciones);
+		Consola.escribirSaltarLinea(atrOpcionSalir + ".Para salir...");
 	}
+
 	private void leerOpcion() {
-		this.atrOpcion=0;
-		atrOpcion=Consola.leer("Ingrese la opción deseada: ",this.atrOpcion,false);
-		if (atrOpcion<1 || atrOpcion>atrOpcionSalir) {
-			Consola.escribirSaltarLinea("Opción invalida", false);
-		}
+		this.atrOpcion = 0;
+		this.atrOpcion = Consola.leer("Ingrese la opción deseada: ", this.atrOpcion);
+		if (this.atrOpcion < 1 || this.atrOpcion > this.atrOpcionSalir) Consola.escribirSaltarLinea("Opción invalida");
 	}
-	public Menu(String parTitulo,String[] parVectoropciones) {
-		this.atrTitulo=parTitulo;
-		this.atrVectorOpciones=parVectoropciones;
-		this.atrOpcionSalir=parVectoropciones.length+1;
+
+	public Menu(String parTitulo, String[] parVectoropciones) {
+		this.atrTitulo = parTitulo;
+		this.atrVectorOpciones = parVectoropciones;
+		this.atrOpcionSalir = parVectoropciones.length + 1;
 		this.iterarMenu();
 	}
+
 	public abstract void procesarOpcion();
 }
