@@ -4,40 +4,22 @@ public class Lista <T>{
 	private NodoLista<T> cabeza;
 	private int tamanio;
 	
-	public Lista() {
-		this.cabeza=null;
-		this.tamanio=0;
-	}
-	public NodoLista<T> getCabeza() {
-		return cabeza;
-	}
+	public Lista() { this.cabeza = null; this.tamanio = 0; }
 
-	public void setCabeza(NodoLista<T> cabeza) {
-		this.cabeza = cabeza;
-	}
+	public NodoLista<T> getCabeza() { return this.cabeza; }
 
-	public int getTamanio() {
-		return tamanio;
-	}
+	public void setCabeza(NodoLista<T> cabeza) { this.cabeza = cabeza; }
 
-	public void setTamanio(int tamanio) {
-		this.tamanio = tamanio;
-	}
-	public void agregar(T dato){
-		NodoLista<T> nuevo=new NodoLista<>(dato);
-		if (cabeza==null) {
-			cabeza=nuevo;
-		}else {
-			agregar(cabeza,nuevo);
-		}
+	public int getTamanio() { return this.tamanio; }
+
+	public void setTamanio(int tamanio) { this.tamanio = tamanio; }
+
+	public void agregar(T dato) {
+		NodoLista<T> nuevo = new NodoLista<>(dato);
+		if (cabeza == null) this.cabeza = nuevo;
+		else this.agregar(this.cabeza).setSiguiente(nuevo);;
 		tamanio++;
 	}
-	private void agregar(NodoLista<T> aux,NodoLista<T> nuevo){
-		if (aux.getSiguiente()!=null) {
-			agregar(aux.getSiguiente(),nuevo);
-		}else {
-			aux.setSiguiente(nuevo);
-		}
-	}
-	
+
+	private NodoLista<T> agregar(NodoLista<T> aux) { return aux.getSiguiente() != null ? this.agregar(aux.getSiguiente()) : aux; }
 }
