@@ -4,109 +4,62 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class Consola {
-	public static <T> boolean escribirSaltarLinea (T parEtiqueta,boolean parDeseaMensaje) {
-		try {
-			System.out.println(parEtiqueta);
-			if (parDeseaMensaje) {
-				System.out.println("Se escribio correctamente");
-			}
-			return true;
-		} catch (Exception e) {
-			if (parDeseaMensaje) {
-				System.out.println("no se pudo escribir correctamente debido a: "+e.getMessage());
-			}
-			return false;
-		}
+
+	public static <T> boolean escribirSaltarLinea (T parEtiqueta) {
+		try { System.out.println(parEtiqueta); return true; } 
+		catch (Exception e) { return false; }
 	}
-	public static <T> boolean escribir(T parEtiqueta,boolean parDeseaMensaje) {
-		try {
-			System.out.print(parEtiqueta);
-			if (parDeseaMensaje) {
-				System.out.print("Se escribio correctamente");
-			}
-			return true;
-		} catch (Exception e) {
-			if (parDeseaMensaje) {
-				System.out.print("no se pudo escribir correctamente debido a: "+e.getMessage());
-			}
-			return false;
-		}
+
+	public static <T> boolean escribir(T parEtiqueta) {
+		try { System.out.print(parEtiqueta); return true; } 
+		catch (Exception e) { return false; }
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T> T leer(T parVarlectura,boolean parDeseaMensaje) {
-		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-		String valor="";
+	public static <T> T leer(T parVarlectura) {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String valor = "", opcion = "";
 		try {
-			valor=br.readLine();
-			if (!esNumerico(""+parVarlectura) && !esNumerico(valor)) {
-				parVarlectura = (T) valor; 
-			} else if(esNumerico(""+parVarlectura) && esNumerico(valor)) {
-				parVarlectura=(T) Integer.valueOf(valor);
+			valor = br.readLine();
+			opcion = ((Object) parVarlectura).getClass().getSimpleName();
+			switch(opcion) {
+				case "String" -> { if(!esNumerico(valor)) parVarlectura = (T) String.valueOf(valor.trim()); }
+				case "Double" -> { if(esNumerico(valor) && valor.contains(".")) parVarlectura = (T) Double.valueOf(valor); }
+				case "Float" -> { if(esNumerico(valor) && valor.contains(".")) parVarlectura = (T) Float.valueOf(valor); }
+				case "Integer" -> { if(esNumerico(valor)) parVarlectura = (T) Integer.valueOf(valor); }
 			}
-			if (parDeseaMensaje) {
-				System.out.print("Se leyo correctamente");
-			}
-		} catch (Exception e) {
-			if (parDeseaMensaje) {
-				System.out.println("No se pudo leer debido a el error: "+e.getMessage());
-			}
-			parVarlectura.getClass().isInstance(valor.getClass());
-		}
+		} catch (Exception e) { }
 		return parVarlectura;
 	}
 	
-	public static <T> T leer(String parEtiqueta,T parVariable,boolean parDeseaMensaje) {
-		escribir(parEtiqueta, parDeseaMensaje);
-		return leer(parVariable, parDeseaMensaje);
-	}
-	/*
-	public static <T> boolean leer(T parVarlectura,boolean parDeseaMensaje) {
-		try {
-			BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-			parVarlectura = (T) br.readLine(); 
-			if (parDeseaMensaje) {
-				System.out.print("Se leyo correctamente");
-			}
-			return true;
-		} catch (Exception e) {
-			if (parDeseaMensaje) {
-				System.out.println("No se pudo leer debido a el error: "+e.getMessage());
-			}
-			return false;
-		}
+	public static <T> T leer(String parEtiqueta, T parVariable) {
+		T resultado;
+		do {
+			escribir(parEtiqueta);
+			resultado = leer(parVariable);
+		} while(resultado.equals(parVariable));
+		return resultado;
 	}
 	
-	public static <T> boolean leer(String parEtiqueta,T parVariable,boolean parDeseaMensaje) {
-		escribir(parEtiqueta, parDeseaMensaje);
-		if (leer(parVariable, parDeseaMensaje)==false) {
-			return false;
-		}
-		return true;
-	}*/
 	public static <T> boolean leer(T [] parVector) {
-		for (int varIndice = 0; varIndice < parVector.length; varIndice++) {
-			leer(parVector[varIndice], false);
-		}
+		for (int varIndice = 0; varIndice < parVector.length; varIndice++) leer(parVector[varIndice]);
 		return true;
 	}
-	public static <T> boolean leer(T [] parVector,int parCapacidadVector) {
-		for (int varIndice = 0; varIndice < parCapacidadVector; varIndice++) {
-			leer(parVector[varIndice],false);
-		}
-		System.out.println("se leyo correctamente el vector");
+
+	public static <T> boolean leer(T [] parVector, int parCapacidadVector) {
+		for (int varIndice = 0; varIndice < parCapacidadVector; varIndice++) leer(parVector[varIndice]);
 		return true;
 	}
-	public static <T> boolean escribirSaltarLinea(T [] parVector,boolean parMensaje) {
+
+	public static <T> boolean escribirSaltarLinea(T [] parVector) {
 		for (int varIndice = 0; varIndice < parVector.length; varIndice++) {
-			if (escribirSaltarLinea(parVector[varIndice], parMensaje)==false) {
+			if (!escribirSaltarLinea((varIndice + 1) + "." + parVector[varIndice])) {
 				System.out.println("Existe un dato incorrecto del vector que no se puede mostrar");
 				System.out.println(varIndice+"posicion del vector con el error");
 			}
 		}
 		return true;
 	}
-	public static boolean esNumerico(String dato) {
-		return dato.matches("[+-]?\\d*(\\.\\d+)?");
-	}
+
+	public static boolean esNumerico(String dato) { return dato.matches("[+-]?\\d*(\\.\\d+)?"); }
 }
