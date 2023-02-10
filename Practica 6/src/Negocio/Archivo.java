@@ -4,44 +4,30 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Archivo {
-	private FileReader archivolec;
-	private FileWriter archivoEsc;
 	private BufferedReader archivoLectura;
 	private PrintWriter archivoEscritura;
-	public Archivo() {
+	private String nombreArchivo;
+	private ArrayList<String> parLineas;
+
+	public Archivo(String nombreArchivo) { this.nombreArchivo = nombreArchivo; this.leerArchivo(); }
+
+	public void leerArchivo() {
+		this.parLineas = new ArrayList<String>();
 		try {
-			archivoEsc=null;
-			archivolec=null;
-			archivoLectura= null;
-			archivoEscritura=null;
-		} catch (Exception ex) {
-			System.err.println("Error: "+ex.getMessage());
-		}
-	}
-	public ArrayList<String> leerArchivo(String nombre){
-		String lineaArchivo;
-		ArrayList<String> parLineas = new ArrayList<String>();
-		try {
-			archivolec= new FileReader(nombre);
-			archivoLectura=new BufferedReader(archivolec);
-			while ((lineaArchivo = archivoLectura.readLine()) != null) {
-				parLineas.add(lineaArchivo);
-			}
+			String lineaArchivo;
+			archivoLectura = new BufferedReader(new FileReader(this.nombreArchivo));
+			while ((lineaArchivo = archivoLectura.readLine()) != null) this.parLineas.add(lineaArchivo);
 			archivoLectura.close();
-		} catch (Exception ex) {
-			System.err.println("Error: "+ex.getMessage());
-		}
-		
-		return parLineas;
+		} catch (Exception ex) { System.err.println("Error: "+ex.getMessage()); }
 	}
-	public void escribirArchivo(String nombre,String dato) {
+
+	public void escribirArchivo(String dato) {
         try {
-        	archivoEsc=new FileWriter(nombre,true);
-        	archivoEscritura=new PrintWriter(archivoEsc);
+        	archivoEscritura = new PrintWriter(new FileWriter(this.nombreArchivo, true));
         	archivoEscritura.write(dato);
             archivoEscritura.close();
-        } catch (IOException ex) {
-            System.out.println("Error: "+ex.getMessage());
-        }
+        } catch (IOException ex) { System.out.println("Error: "+ex.getMessage()); }
 	}
+
+	public ArrayList<String> getDatos() { return this.parLineas; }
 }
