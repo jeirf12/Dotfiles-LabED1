@@ -4,26 +4,20 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Archivo {
-	private FileReader archivo;
 	private BufferedReader archivoEntrada;
+	private String nombreArchivo;
+	private ArrayList<String> datos;
 	
-	public Archivo(){
-		archivo=null;
-		archivoEntrada=null;
-	}
+	public Archivo(String nombreArchivo) { this.nombreArchivo = nombreArchivo; this.leer(); }
 	
-	public ArrayList<String> leer(String nombre){
-		String linea;
-		ArrayList<String> datos=new ArrayList<String>();
+	private void leer() {
 		try {
-			archivo=new FileReader(nombre);
-			archivoEntrada=new BufferedReader(archivo);
-			while ((linea=archivoEntrada.readLine())!=null) {
-				datos.add(linea);
-			}	
-		} catch (Exception ex) {
-			Consola.escribirSaltarLinea("Error: "+ex.getMessage());
-		}
-		return datos;
+			String linea;
+			this.datos = new ArrayList<String>();
+			this.archivoEntrada = new BufferedReader(new FileReader(this.nombreArchivo));
+			while ((linea = this.archivoEntrada.readLine()) != null) this.datos.add(linea);
+		} catch (Exception ex) { Consola.escribirSaltarLinea("Error: "+ex.getMessage()); }
 	}
+
+	public ArrayList<String> getDatos() { return this.datos; }
 }
