@@ -1,4 +1,4 @@
-package com.mycompany.negocio;
+package Negocio;
 
 import java.util.Comparator;
 
@@ -9,8 +9,5 @@ import java.util.Comparator;
 public class AristaSort<T> implements Comparator<Arista<T>> {
 
     @Override
-    public int compare(Arista<T> t, Arista<T> t1) {
-        return t.getCoste() - t1.getCoste();
-    }
-    
+    public int compare(Arista<T> t, Arista<T> t1) { return t.getCoste() - t1.getCoste(); }
 }
