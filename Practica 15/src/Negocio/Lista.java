@@ -5,49 +5,34 @@ public class Lista<T> {
 	private int tamanio;
 
 	public void agregar(T dato) {
-		NodoLista<T> nuevo=new NodoLista<T>(dato);
-		if (esVacia()) {
-			cabeza=nuevo;
-		}else {
-			agregar(cabeza,nuevo);
-		}
+		NodoLista<T> nuevo = new NodoLista<T>(dato);
+		if (this.esVacia()) this.cabeza = nuevo;
+		else this.agregar(cabeza).setSiguiente(nuevo);;
 		this.tamanio++;
 	}
-	private void agregar(NodoLista<T> aux,NodoLista<T> nuevo) {
-		if (aux.getSiguiente()!=null) {
-			agregar(aux.getSiguiente(),nuevo);
-		}else {
-			aux.setSiguiente(nuevo);
-		}
-	}
 
-	public boolean esVacia() {
-		return cabeza == null;
-	}
+	private NodoLista<T> agregar(NodoLista<T> aux) { return aux.getSiguiente() != null ? this.agregar(aux.getSiguiente()) : aux; }
 
-	public int getTamanio() {
-		return tamanio;
-	}
+	public boolean esVacia() { return this.cabeza == null; }
 
-	public NodoLista<T> getCabeza() {
-		return cabeza;
-	}
+	public int getTamanio() { return this.tamanio; }
+
+	public NodoLista<T> getCabeza() { return this.cabeza; }
 	
 	public void eliminar(T dato) {
-		if (cabeza.getDato().equals(dato)) {
-			cabeza=cabeza.getSiguiente();
-		}else {
-			eliminar(cabeza, dato);
+		if (this.cabeza.getDato().equals(dato)) this.cabeza = this.cabeza.getSiguiente();
+		else {
+			NodoLista<T> aux = eliminar(this.cabeza, dato);
+			aux.setSiguiente(aux.getSiguiente().getSiguiente());
 		}
 		this.tamanio--;
 	}
-	private void eliminar(NodoLista<T> aux,T dato) {
-		if (aux.getSiguiente()!=null) {
-			if (aux.getSiguiente().getDato().equals(dato)) {
-				aux.setSiguiente(aux.getSiguiente().getSiguiente());
-			}else {
-				eliminar(aux.getSiguiente(), dato);
-			}
+
+	private NodoLista<T> eliminar(NodoLista<T> aux,T dato) {
+		if (aux.getSiguiente() != null) {
+			if (aux.getSiguiente().getDato().equals(dato)) return aux;
+			return this.eliminar(aux.getSiguiente(), dato);
 		}
+		return aux;
 	}
 }
